@@ -56,4 +56,27 @@ CREATE TABLE sightings (
  
  -- Problem 2
  
- 
+ SELECT COUNT(DISTINCT species_id) AS unique_species_count FROM sightings;
+
+ -- Problem 3
+
+ SELECT * FROM sightings WHERE "location" ILIKE '%pass%';
+
+ -- Problem 4
+
+ -- Problem 5
+
+ SELECT common_name FROM species WHERE species_id NOT IN (SELECT species_id FROM sightings);
+
+ -- Problem 6
+
+ SELECT * FROM sightings ORDER BY sighting_time DESC LIMIT 2;
+
+ -- Problem 7
+
+ UPDATE species SET conservation_status = 'Historic' WHERE discovery_date < '1800-01-01';
+
+ -- Problem 9
+
+ DELETE FROM rangers WHERE ranger_id NOT IN (SELECT ranger_id FROM sightings);
+
