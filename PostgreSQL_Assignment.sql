@@ -74,7 +74,10 @@ CREATE TABLE sightings (
 
  -- Problem 6
 
- SELECT * FROM sightings ORDER BY sighting_time DESC LIMIT 2;
+ SELECT species.common_name, sightings.sighting_time, rangers.name FROM sightings
+ JOIN species ON sightings.species_id = species.species_id
+ JOIN rangers ON sightings.ranger_id = rangers.ranger_id
+ ORDER BY sightings.sighting_time DESC LIMIT 2;
 
  -- Problem 7
 
@@ -84,9 +87,9 @@ CREATE TABLE sightings (
 
  SELECT sighting_id, 
  CASE
-     WHEN EXTRACT (HOUR FROM sighting_time) <12 THEN 'Morning'
-     WHEN EXTRACT (HOUR FROM sighting_time) BETWEEN 12 AND 17 THEN 'Afternoon'
-     ELSE 'Evening'
+ WHEN EXTRACT (HOUR FROM sighting_time) <12 THEN 'Morning'
+ WHEN EXTRACT (HOUR FROM sighting_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+ ELSE 'Evening'
  END AS time_of_day
  FROM sightings;
 
