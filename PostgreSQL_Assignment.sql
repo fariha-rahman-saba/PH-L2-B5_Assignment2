@@ -64,6 +64,10 @@ CREATE TABLE sightings (
 
  -- Problem 4
 
+ SELECT rangers.name, COUNT(sightings.sighting_id) AS total_sightings 
+ FROM rangers JOIN sightings ON rangers.ranger_id = sightings.ranger_id
+ GROUP BY rangers.name;
+ 
  -- Problem 5
 
  SELECT common_name FROM species WHERE species_id NOT IN (SELECT species_id FROM sightings);
@@ -75,6 +79,16 @@ CREATE TABLE sightings (
  -- Problem 7
 
  UPDATE species SET conservation_status = 'Historic' WHERE discovery_date < '1800-01-01';
+
+ -- Problem 8
+
+ SELECT sighting_id, 
+ CASE
+     WHEN EXTRACT (HOUR FROM sighting_time) <12 THEN 'Morning'
+     WHEN EXTRACT (HOUR FROM sighting_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+     ELSE 'Evening'
+ END AS time_of_day
+ FROM sightings;
 
  -- Problem 9
 
